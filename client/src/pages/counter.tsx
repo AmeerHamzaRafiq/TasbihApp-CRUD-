@@ -60,9 +60,15 @@ export default function Counter() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container px-4 py-8 max-w-2xl mx-auto">
-        <div className="bg-muted/20 py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-8">
+    <div 
+      className="min-h-screen bg-background flex flex-col touch-none"
+      onClick={increment}
+    >
+      <div className="container px-4 py-8 max-w-2xl mx-auto w-full">
+        <div 
+          className="bg-muted/20 py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-8"
+          onClick={e => e.stopPropagation()} // Prevent increment when clicking nav
+        >
           <Button
             variant="ghost"
             onClick={() => navigate("/")}
@@ -85,11 +91,12 @@ export default function Counter() {
           <h1 className="text-3xl font-bold text-primary">{counter.title}</h1>
         </div>
 
-        <div
-          className="flex justify-center items-center min-h-[40vh] touch-none cursor-pointer"
-          onClick={increment}
-        >
+        <div className="flex justify-center items-center min-h-[40vh]">
           <CircularProgress current={counter.current} total={counter.count} />
+        </div>
+
+        <div className="text-center mt-8 text-muted-foreground">
+          Tap anywhere to increase counter
         </div>
 
         <Dialog open={showComplete} onOpenChange={setShowComplete}>

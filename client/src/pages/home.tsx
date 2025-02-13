@@ -22,6 +22,7 @@ import { CounterList } from "@/components/counter-list";
 import { createCounter, deleteCounter, getCounters } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
+import bgImage from "../assets/tasbeeh.jpg";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -30,7 +31,7 @@ const formSchema = z.object({
 
 export default function Home() {
   const [open, setOpen] = useState(false);
-  const [counters, setCounters] = useState(() => getCounters());
+  const [counters, setCounters] = useState(getCounters);
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -43,7 +44,7 @@ export default function Home() {
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     try {
-      createCounter(data);
+      const newCounter = createCounter(data);
       setCounters(getCounters());
       setOpen(false);
       form.reset();
@@ -61,12 +62,20 @@ export default function Home() {
   }
 
   function onDelete(id: string) {
-    deleteCounter(id);
-    setCounters(getCounters());
-    toast({
-      title: "Counter deleted",
-      description: "The counter has been deleted successfully.",
-    });
+    try {
+      deleteCounter(id);
+      setCounters(getCounters());
+      toast({
+        title: "Counter deleted",
+        description: "The counter has been deleted successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to delete counter.",
+        variant: "destructive",
+      });
+    }
   }
 
   return (

@@ -40,16 +40,11 @@ export function CounterList({
   counters: Counter[];
   onDelete: (id: string) => void;
 }) {
-  const [counters, setCounters] = useState<Counter[]>(initialCounters);
   const [editingCounter, setEditingCounter] = useState<Counter | null>(null);
   const { toast } = useToast();
 
   const form = useForm<EditFormData>({
     resolver: zodResolver(editFormSchema),
-    defaultValues: {
-      title: editingCounter?.title || "",
-      count: editingCounter?.count || 100,
-    },
   });
 
   const onSubmit = (data: EditFormData) => {
@@ -57,11 +52,6 @@ export function CounterList({
 
     try {
       const updated = editCounter(editingCounter.id, data);
-      setCounters((prev) =>
-        prev.map((counter) =>
-          counter.id === editingCounter.id ? updated : counter
-        )
-      );
       setEditingCounter(null);
       form.reset();
       toast({
@@ -77,7 +67,7 @@ export function CounterList({
     }
   };
 
-  if (counters.length === 0) {
+  if (initialCounters.length === 0) {
     return (
       <div className="text-center py-12 flex justify-center">
         <motion.p
@@ -94,7 +84,7 @@ export function CounterList({
 
   return (
     <div className="grid gap-4">
-      {counters.map((counter) => (
+      {initialCounters.map((counter) => (
         <Card key={counter.id} className="hover:shadow-md transition-shadow">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">

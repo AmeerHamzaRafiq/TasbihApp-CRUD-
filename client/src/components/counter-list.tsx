@@ -28,7 +28,10 @@ import {
 
 const editFormSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  count: z.coerce.number().min(1, "Count must be at least 1"),
+  count: z.coerce
+    .number()
+    .min(1, "Count must be at least 1")
+    .max(10000, "Count cannot exceed 10,000"),
 });
 
 type EditFormData = z.infer<typeof editFormSchema>;
@@ -92,11 +95,11 @@ export function CounterList({
   return (
     <div className="grid gap-4">
       {counters.map((counter) => (
-        <Card key={counter.id} className="hover:shadow-md transition-shadow">
-          <CardContent className="p-4">
-            <div className="flex items-center justify-between">
-              <Link href={`/counter/${counter.id}`}>
-                <div className="flex-1 cursor-pointer">
+        <Link key={counter.id} href={`/counter/${counter.id}`}>
+          <Card className="hover:shadow-md transition-shadow cursor-pointer">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
                   <h3 className="font-semibold text-lg md:text-xl">
                     {counter.title}
                   </h3>
@@ -104,40 +107,38 @@ export function CounterList({
                     Progress: {counter.current} / {counter.count}
                   </p>
                 </div>
-              </Link>
-              <div className="flex gap-2 ml-4">
-                <Button
-                  className="bg-green-600 hover:bg-green-500"
-                  variant="outline"
-                  size="icon"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setEditingCounter(counter);
-                    form.reset({
-                      title: counter.title,
-                      count: counter.count,
-                    });
-                  }}
-                >
-                  <Pencil className="h-4 w-4 text-white" />
-                </Button>
-                <Button
-                  className="bg-red-600 hover:bg-red-500"
-                  variant="destructive"
-                  size="icon"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    onDelete(counter.id);
-                  }}
-                >
-                  <XCircle className="h-4 w-4" />
-                </Button>
+                <div className="flex gap-2 ml-4" onClick={(e) => e.preventDefault()}>
+                  <Button
+                    className="bg-green-600 hover:bg-green-500"
+                    variant="outline"
+                    size="icon"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setEditingCounter(counter);
+                      form.reset({
+                        title: counter.title,
+                        count: counter.count,
+                      });
+                    }}
+                  >
+                    <Pencil className="h-4 w-4 text-white" />
+                  </Button>
+                  <Button
+                    className="bg-red-600 hover:bg-red-500"
+                    variant="destructive"
+                    size="icon"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      onDelete(counter.id);
+                    }}
+                  >
+                    <XCircle className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </Link>
       ))}
 
       <Dialog open={!!editingCounter} onOpenChange={() => setEditingCounter(null)}>
@@ -170,6 +171,7 @@ export function CounterList({
                     <FormControl>
                       <Input
                         type="number"
+                        max="10000"
                         placeholder="Enter count"
                         {...field}
                       />

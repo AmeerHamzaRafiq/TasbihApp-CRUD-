@@ -7,29 +7,11 @@ interface CircularProgressProps {
 
 export function CircularProgress({ current, total }: CircularProgressProps) {
   const percentage = Math.round((current / total) * 100);
-  const radius = 120; // Increased radius for better visibility
+  const radius = 120;
   const strokeWidth = 4;
   const normalizedRadius = radius - strokeWidth * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
-
-  // Generate tick marks
-  const tickMarks = Array.from({ length: 60 }, (_, index) => {
-    const rotation = (index * 360) / 60;
-    return (
-      <line
-        key={index}
-        x1={radius}
-        y1={strokeWidth}
-        x2={radius}
-        y2={strokeWidth + 10}
-        stroke="currentColor"
-        strokeWidth={2}
-        transform={`rotate(${rotation} ${radius} ${radius})`}
-        className="text-red-500"
-      />
-    );
-  });
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -48,11 +30,9 @@ export function CircularProgress({ current, total }: CircularProgressProps) {
             cx={radius}
             cy={radius}
           />
-          {/* Tick marks */}
-          {tickMarks}
           {/* Progress circle */}
           <circle
-            stroke="rgb(239 68 68)"
+            stroke="rgba(239, 68, 68, 0.6)"
             fill="transparent"
             strokeWidth={strokeWidth}
             strokeDasharray={circumference + ' ' + circumference}
@@ -65,8 +45,8 @@ export function CircularProgress({ current, total }: CircularProgressProps) {
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <span className="text-4xl font-bold text-red-500">{current}</span>
-            <span className="text-sm text-gray-500"> / {total}</span>
+            <span className="text-3xl font-bold text-red-500">{current}</span>
+            <span className="text-3xl text-gray-500"> / {total}</span>
           </div>
         </div>
       </div>

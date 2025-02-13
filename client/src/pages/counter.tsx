@@ -62,11 +62,11 @@ export default function Counter() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container px-4 py-8 max-w-2xl mx-auto">
-        <div className="bg-slate-100 py-6 px-4 w-full rounded-md shadow-md flex items-center justify-between mb-8">
+        <div className="bg-muted/20 py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-8">
           <Button
             variant="ghost"
             onClick={() => navigate("/")}
-            className="text-sm md:text-base"
+            className="text-sm md:text-base hover:text-primary"
           >
             <ChevronLeft className="h-4 w-4 mr-2" />
             Back
@@ -74,7 +74,7 @@ export default function Counter() {
           <Button
             variant="outline"
             onClick={resetCounter}
-            className="text-sm md:text-base"
+            className="text-sm md:text-base hover:text-primary"
           >
             <RotateCcw className="h-4 w-4 mr-2" />
             Restart
@@ -82,7 +82,7 @@ export default function Counter() {
         </div>
 
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2">{counter.title}</h1>
+          <h1 className="text-3xl font-bold text-primary">{counter.title}</h1>
         </div>
 
         <div
@@ -95,7 +95,7 @@ export default function Counter() {
         <Dialog open={showComplete} onOpenChange={setShowComplete}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle>Congratulations! 🎉</DialogTitle>
+              <DialogTitle className="text-primary">Congratulations! 🎉</DialogTitle>
               <DialogDescription>
                 You have completed {counter.count} counts of {counter.title}
               </DialogDescription>

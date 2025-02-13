@@ -100,7 +100,7 @@ export function CounterList({
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <h3 className="font-semibold text-lg md:text-xl">
+                  <h3 className="font-semibold text-lg md:text-xl text-primary">
                     {counter.title}
                   </h3>
                   <p className="text-sm text-muted-foreground">
@@ -109,8 +109,7 @@ export function CounterList({
                 </div>
                 <div className="flex gap-2 ml-4" onClick={(e) => e.preventDefault()}>
                   <Button
-                    className="bg-green-600 hover:bg-green-500"
-                    variant="outline"
+                    variant="secondary"
                     size="icon"
                     onClick={(e) => {
                       e.preventDefault();
@@ -121,10 +120,9 @@ export function CounterList({
                       });
                     }}
                   >
-                    <Pencil className="h-4 w-4 text-white" />
+                    <Pencil className="h-4 w-4" />
                   </Button>
                   <Button
-                    className="bg-red-600 hover:bg-red-500"
                     variant="destructive"
                     size="icon"
                     onClick={(e) => {

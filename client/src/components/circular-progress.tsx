@@ -23,7 +23,7 @@ export function CircularProgress({ current, total }: CircularProgressProps) {
         >
           {/* Background circle */}
           <circle
-            stroke="#f1f1f1"
+            stroke="hsl(var(--muted))"
             fill="transparent"
             strokeWidth={strokeWidth}
             r={normalizedRadius}
@@ -32,7 +32,7 @@ export function CircularProgress({ current, total }: CircularProgressProps) {
           />
           {/* Progress circle */}
           <circle
-            stroke="rgba(239, 68, 68, 0.6)"
+            stroke="hsl(var(--primary))"
             fill="transparent"
             strokeWidth={strokeWidth}
             strokeDasharray={circumference + ' ' + circumference}
@@ -40,13 +40,13 @@ export function CircularProgress({ current, total }: CircularProgressProps) {
             r={normalizedRadius}
             cx={radius}
             cy={radius}
-            className="transition-all duration-300 ease-in-out"
+            className="transition-all duration-300 ease-in-out opacity-80"
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
-            <span className="text-3xl font-bold text-red-500">{current}</span>
-            <span className="text-3xl text-gray-500"> / {total}</span>
+            <span className="text-3xl font-bold text-primary">{current}</span>
+            <span className="text-3xl text-muted-foreground"> / {total}</span>
           </div>
         </div>
       </div>

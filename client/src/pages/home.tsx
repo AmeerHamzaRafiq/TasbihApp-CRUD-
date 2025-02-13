@@ -83,12 +83,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <div className="container px-4 py-8 max-w-2xl mx-auto flex-grow">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold">Tasbih Counter</h1>
+      <div className="container p-4 sm:p-6 md:p-8 max-w-2xl mx-auto flex-grow">
+        <div className="flex items-center justify-between mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold">Tasbih Counter</h1>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-              <Button size="sm">
+              <Button size="sm" className="whitespace-nowrap">
                 <Plus className="h-4 w-4 mr-2" />
                 New Counter
               </Button>
@@ -151,7 +151,7 @@ export default function Home() {
 
         <CounterList counters={counters} onDelete={onDelete} />
 
-        <div className="mt-4 md:mt-6 flex justify-center items-center relative">
+        <div className="mt-12 sm:mt-16 flex justify-center items-center relative mb-24 sm:mb-32">
           <DotLottiePlayer
             src="https://lottie.host/c8eec2f4-e353-4437-8b50-98f36400cd19/qz1AeuZFVQ.lottie"
             autoplay

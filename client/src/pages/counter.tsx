@@ -64,9 +64,9 @@ export default function Counter() {
       className="min-h-screen bg-background flex flex-col touch-none"
       onClick={increment}
     >
-      <div className="container px-4 py-8 max-w-2xl mx-auto w-full">
+      <div className="container p-4 sm:p-6 md:p-8 max-w-2xl mx-auto w-full flex-grow flex flex-col">
         <div 
-          className="bg-muted/20 py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-8"
+          className="bg-muted/20 py-4 sm:py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-6 sm:mb-8"
           onClick={e => e.stopPropagation()} // Prevent increment when clicking nav
         >
           <Button
@@ -87,16 +87,16 @@ export default function Counter() {
           </Button>
         </div>
 
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-primary">{counter.title}</h1>
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold text-primary">{counter.title}</h1>
         </div>
 
-        <div className="flex justify-center items-center min-h-[40vh]">
+        <div className="flex-grow flex flex-col justify-center items-center">
           <CircularProgress current={counter.current} total={counter.count} />
-        </div>
-
-        <div className="text-center mt-8 text-muted-foreground">
-          Tap anywhere to increase counter
+          {/* Lottie animation would ideally go here */}
+          <div className="text-center mt-6 text-muted-foreground text-sm sm:text-base">
+            Tap anywhere to increase counter
+          </div>
         </div>
 
         <Dialog open={showComplete} onOpenChange={setShowComplete}>

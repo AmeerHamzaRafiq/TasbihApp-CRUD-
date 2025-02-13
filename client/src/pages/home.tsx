@@ -25,7 +25,10 @@ import { useCounters, useCreateCounter, useDeleteCounter } from "@/lib/queries";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
-  count: z.coerce.number().min(1, "Count must be at least 1"),
+  count: z.coerce
+    .number()
+    .min(1, "Count must be at least 1")
+    .max(10000, "Count cannot exceed 10,000"),
 });
 
 export default function Home() {

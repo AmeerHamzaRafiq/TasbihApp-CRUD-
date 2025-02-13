@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { CircularProgress } from "@/components/circular-progress";
-import { getCounters, updateCounter } from "@/lib/storage";
 import { ChevronLeft, RotateCcw } from "lucide-react";
 import {
   Dialog,
@@ -13,44 +12,51 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import confetti from "canvas-confetti";
+import { useCounters, useUpdateCounter } from "@/lib/queries";
 
 export default function Counter() {
   const [location, navigate] = useLocation();
   const { id } = useParams();
-  const [counter, setCounter] = useState(() =>
-    getCounters().find((c) => c.id === id)
-  );
+  const { data: counters = [] } = useCounters();
+  const counter = counters.find((c) => c.id === id);
+  const { mutate: updateCounterMutation } = useUpdateCounter();
   const [showComplete, setShowComplete] = useState(false);
 
-  useEffect(() => {
-    if (!counter) {
-      navigate("/");
-    }
-  }, [counter, navigate]);
-
-  if (!counter) return null;
+  if (!counter) {
+    navigate("/");
+    return null;
+  }
 
   function increment() {
     if (!counter || counter.current >= counter.count) return;
 
-    const updated = updateCounter(counter.id, counter.current + 1);
-    setCounter(updated);
-
-    if (updated.current === updated.count) {
-      setShowComplete(true);
-      confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
-      });
-    }
+    updateCounterMutation(
+      { id: counter.id, current: counter.current + 1 },
+      {
+        onSuccess: (updated) => {
+          if (updated.current === updated.count) {
+            setShowComplete(true);
+            confetti({
+              particleCount: 100,
+              spread: 70,
+              origin: { y: 0.6 },
+            });
+          }
+        },
+      }
+    );
   }
 
   function resetCounter() {
     if (!counter) return;
-    const updated = updateCounter(counter.id, 0);
-    setCounter(updated);
-    setShowComplete(false);
+    updateCounterMutation(
+      { id: counter.id, current: 0 },
+      {
+        onSuccess: () => {
+          setShowComplete(false);
+        },
+      }
+    );
   }
 
   return (

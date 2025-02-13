@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { editCounter } from "@/lib/storage";
+import { useEditCounter } from "@/lib/queries";
 import {
   Dialog,
   DialogContent,
@@ -34,7 +34,7 @@ const editFormSchema = z.object({
 type EditFormData = z.infer<typeof editFormSchema>;
 
 export function CounterList({
-  counters: initialCounters,
+  counters,
   onDelete,
 }: {
   counters: Counter[];
@@ -42,6 +42,7 @@ export function CounterList({
 }) {
   const [editingCounter, setEditingCounter] = useState<Counter | null>(null);
   const { toast } = useToast();
+  const { mutate: editCounterMutation } = useEditCounter();
 
   const form = useForm<EditFormData>({
     resolver: zodResolver(editFormSchema),
@@ -51,13 +52,19 @@ export function CounterList({
     if (!editingCounter) return;
 
     try {
-      const updated = editCounter(editingCounter.id, data);
-      setEditingCounter(null);
-      form.reset();
-      toast({
-        title: "Success",
-        description: "Counter updated successfully!",
-      });
+      editCounterMutation(
+        { id: editingCounter.id, data },
+        {
+          onSuccess: () => {
+            setEditingCounter(null);
+            form.reset();
+            toast({
+              title: "Success",
+              description: "Counter updated successfully!",
+            });
+          },
+        }
+      );
     } catch (error) {
       toast({
         title: "Error",
@@ -67,7 +74,7 @@ export function CounterList({
     }
   };
 
-  if (initialCounters.length === 0) {
+  if (counters.length === 0) {
     return (
       <div className="text-center py-12 flex justify-center">
         <motion.p
@@ -84,7 +91,7 @@ export function CounterList({
 
   return (
     <div className="grid gap-4">
-      {initialCounters.map((counter) => (
+      {counters.map((counter) => (
         <Card key={counter.id} className="hover:shadow-md transition-shadow">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">

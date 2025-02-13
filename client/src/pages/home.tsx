@@ -19,10 +19,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { CounterList } from "@/components/counter-list";
-import { createCounter, deleteCounter, getCounters } from "@/lib/storage";
 import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
-import bgImage from "../assets/tasbeeh.jpg";
+import { useCounters, useCreateCounter, useDeleteCounter } from "@/lib/queries";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -31,7 +30,9 @@ const formSchema = z.object({
 
 export default function Home() {
   const [open, setOpen] = useState(false);
-  const [counters, setCounters] = useState(getCounters);
+  const { data: counters = [] } = useCounters();
+  const { mutate: createCounterMutation } = useCreateCounter();
+  const { mutate: deleteCounterMutation } = useDeleteCounter();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,8 +45,7 @@ export default function Home() {
 
   function onSubmit(data: z.infer<typeof formSchema>) {
     try {
-      const newCounter = createCounter(data);
-      setCounters(getCounters());
+      createCounterMutation(data);
       setOpen(false);
       form.reset();
       toast({
@@ -63,8 +63,7 @@ export default function Home() {
 
   function onDelete(id: string) {
     try {
-      deleteCounter(id);
-      setCounters(getCounters());
+      deleteCounterMutation(id);
       toast({
         title: "Counter deleted",
         description: "The counter has been deleted successfully.",

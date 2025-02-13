@@ -22,6 +22,7 @@ import { CounterList } from "@/components/counter-list";
 import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
 import { useCounters, useCreateCounter, useDeleteCounter } from "@/lib/queries";
+import { DotLottiePlayer } from "@dotlottie/react-player";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -81,8 +82,8 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container px-4 py-8 max-w-2xl mx-auto">
+    <div className="min-h-screen bg-background flex flex-col">
+      <div className="container px-4 py-8 max-w-2xl mx-auto flex-grow">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold">Tasbih Counter</h1>
           <Dialog open={open} onOpenChange={setOpen}>
@@ -125,6 +126,7 @@ export default function Home() {
                           <Input
                             type="number"
                             placeholder="Enter count"
+                            max="10000"
                             {...field}
                           />
                         </FormControl>
@@ -146,8 +148,29 @@ export default function Home() {
             </DialogContent>
           </Dialog>
         </div>
+
         <CounterList counters={counters} onDelete={onDelete} />
+
+        <div className="mt-4 md:mt-6 flex justify-center items-center relative">
+          <DotLottiePlayer
+            src="https://lottie.host/c8eec2f4-e353-4437-8b50-98f36400cd19/qz1AeuZFVQ.lottie"
+            autoplay
+            loop
+            style={{
+              width: "150px",
+              height: "150px",
+              position: "absolute",
+              left: "50%",
+              marginTop: "0px",
+              transform: "translateX(-50%)",
+            }}
+          />
+        </div>
       </div>
+
+      <footer className="bg-primary text-white text-center py-1 mt-auto">
+        <p className="text-sm">&copy; {new Date().getFullYear()} Muhammad Ameer Hamza. All rights reserved.</p>
+      </footer>
     </div>
   );
 }

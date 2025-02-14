@@ -81,12 +81,12 @@ export function CounterList({
   if (counters.length === 0) {
     return (
       <motion.div
-        className="inset-0 flex items-center justify-center mt-52"
+        className="inset-0 flex items-center justify-center "
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <p className="text-muted-foreground text-lg">
+        <p className="text-muted-foreground text-sm">
           <Typewriter
             options={{
               strings: ["No counters yet. Create one to get started."],

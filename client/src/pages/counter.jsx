@@ -14,7 +14,8 @@ import {
 import confetti from "canvas-confetti";
 import { useCounters, useUpdateCounter } from "@/lib/queries";
 import { DotLottiePlayer } from "@dotlottie/react-player";
-
+import BgWallPpr from "../../../assets/bg.png";
+// import BgWallPpr from "../../../assets/BGW.jpg";
 export default function Counter() {
   const [location, navigate] = useLocation();
   const { id } = useParams();
@@ -62,12 +63,18 @@ export default function Counter() {
 
   return (
     <div
-      className="min-h-screen bg-background flex flex-col touch-none"
+      style={{
+        backgroundImage: `url(${BgWallPpr})`,
+      
+        backgroundPosition: "center",
+        backgroundRepeat: "repeat",
+      }}
+      className="  min-h-screen bg-background flex flex-col touch-none"
       onClick={increment}
     >
       <div className="container p-4 sm:p-6 md:p-8 max-w-2xl mx-auto w-full flex-grow flex flex-col">
         <div
-          className="bg-muted/20 py-4 sm:py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-6 sm:mb-8"
+          className="bg-muted/20 py-4 bg-slate-100 sm:py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-4 sm:mb-8"
           onClick={(e) => e.stopPropagation()}
         >
           <Button
@@ -87,16 +94,16 @@ export default function Counter() {
             Restart
           </Button>
         </div>
+   
 
-
-       <div className="text-center mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold mb-2 border-b-2 border-gray-400 pb-2">
+   
+        <div className="text-center mb-6 md:mb-8">
+          <h1 className="racing-sans-one text-2xl md:text-3xl font-bold mb-2 border-b-2 border-gray-400 pb-2">
             {counter.title}
           </h1>
-
         </div>
 
-        <div className="flex-grow flex flex-col justify-center items-center">
+        <div className="flex-grow flex flex-col justify-center items-center ">
           <CircularProgress current={counter.current} total={counter.count} />
 
           {/* Lottie animation would ideally go here */}
@@ -117,8 +124,6 @@ export default function Counter() {
             />
           </div>
         </div>
-
-      
 
         <Dialog open={showComplete} onOpenChange={setShowComplete}>
           <DialogContent className="sm:max-w-md">

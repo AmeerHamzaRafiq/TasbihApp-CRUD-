@@ -22,6 +22,8 @@ import { CounterList } from "@/components/counter-list";
 import { useToast } from "@/hooks/use-toast";
 import { Plus } from "lucide-react";
 import { useCounters, useCreateCounter, useDeleteCounter } from "@/lib/queries";
+import bgImage from "../../../assets/tasbeeh.jpg";
+import { FaInstagram, FaGlobe, FaLinkedin } from "react-icons/fa";
 
 const formSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -81,81 +83,127 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
+      className="min-h-screen bg-background flex flex-col"
+    >
       <div className="container p-4 sm:p-6 md:p-8 max-w-2xl mx-auto flex-grow">
-        <div className="flex items-center justify-between mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold">Tasbih Counter</h1>
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger asChild>
-              <Button size="sm" className="whitespace-nowrap">
-                <Plus className="h-4 w-4 mr-2" />
-                New Counter
-              </Button>
-            </DialogTrigger>
+        <div className="bg-slate-100 mb-7 py-6 px-4 w-full flex justify-between rounded-md shadow-md">
+          <div className="my-[-0.6rem]">
+            <h1 className="racing-sans-one text-3xl mt-2 font-light">Tasbih</h1>
+          </div>
 
-            <DialogContent className="sm:max-w-md">
-              <DialogHeader>
-                <DialogTitle>Create new counter</DialogTitle>
-              </DialogHeader>
-
-              <Form {...form}>
-                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-4"
+          <div>
+            <Dialog open={open} onOpenChange={setOpen}>
+              <DialogTrigger asChild>
+                <Button
+                  size="lg"
+                  className="md:text-base flex items-center space-x-2 h-9"
                 >
-                  <FormField
-                    control={form.control}
-                    name="title"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Title</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Zikr, Durood or any other prayer here !!!" {...field} />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="count"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Count</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="number"
-                            placeholder="Enter count"
-                            max="10000"
-                            {...field}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                  <div className="flex justify-end gap-4">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => setOpen(false)}
-                    >
-                      Cancel
-                    </Button>
-                    <Button type="submit">Create</Button>
-                  </div>
-                </form>
-              </Form>
-            </DialogContent>
-          </Dialog>
-        </div>
+                  <Plus className="w-5 h-5" />
+                </Button>
+              </DialogTrigger>
 
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Create new counter</DialogTitle>
+                </DialogHeader>
+
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-4"
+                  >
+                    <FormField
+                      control={form.control}
+                      name="title"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Title</FormLabel>
+                          <FormControl>
+                            <Input
+                              placeholder="Zikr, Durood or any other prayer here !!!"
+                              {...field}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="count"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Count</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              placeholder="Enter count"
+                              {...field}
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <div className="flex justify-end gap-4">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setOpen(false)}
+                      >
+                        Cancel
+                      </Button>
+                      <Button type="submit">Create</Button>
+                    </div>
+                  </form>
+                </Form>
+              </DialogContent>
+            </Dialog>
+          </div>
+        </div>
         <CounterList counters={counters} onDelete={onDelete} />
       </div>
 
-      <footer className=" text-slate-600 text-center py-5 mt-auto">
+      
+      // footer airea
+      
+      
+      <footer className="text-gray-300 text-center pb-10 mt-auto">
         <p className="text-sm">
-          &copy; {new Date().getFullYear()} Muhammad Ameer Hamza. All rights
-          reserved.
+          &copy; {new Date().getFullYear()} Muhammad Ameer Hamza.
+          <br /> All rights reserved.
         </p>
+
+        {/* Social Media Icons */}
+        <div className="flex justify-center space-x-4 mt-3">
+          <a
+            href="https://www.instagram.com/al_quran360_/?__pwa=1"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaInstagram className="text-xl hover:text-pink-500 transition" />
+          </a>
+          <a
+            href="https://h-rportfolio.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaGlobe className="text-xl hover:text-blue-400 transition" />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/muhammad-hamza-480597279/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaLinkedin className="text-xl hover:text-blue-600 transition" />
+          </a>
+        </div>
       </footer>
     </div>
   );

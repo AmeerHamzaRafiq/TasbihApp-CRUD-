@@ -2,7 +2,7 @@ import { Counter } from "./types";
 
 const STORAGE_KEY = "tasbih_counters";
 
-// Initialize counters from localStorage or empty array
+
 let counters: Counter[] = (() => {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -28,7 +28,7 @@ export function createCounter(data: { title: string; count: number }): Counter {
     count: data.count,
     current: 0,
   };
-  counters = [...counters, counter];
+  counters = [counter, ...counters ];
   saveToStorage();
   return counter;
 }

@@ -18,6 +18,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import Typewriter from "typewriter-effect";
 import {
   Form,
   FormControl,
@@ -79,16 +80,23 @@ export function CounterList({
 
   if (counters.length === 0) {
     return (
-      <div className="text-center py-12 flex justify-center">
-        <motion.p
-          className="text-muted-foreground text-lg"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          No counters yet. Create one to get started.
-        </motion.p>
-      </div>
+      <motion.div
+        className="inset-0 flex items-center justify-center mt-52"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        <p className="text-muted-foreground text-lg">
+          <Typewriter
+            options={{
+              strings: ["No counters yet. Create one to get started."],
+              autoStart: true,
+              loop: true,
+              delay: 50,
+            }}
+          />
+        </p>
+      </motion.div>
     );
   }
 
@@ -107,7 +115,10 @@ export function CounterList({
                     Progress: {counter.current} / {counter.count}
                   </p>
                 </div>
-                <div className="flex gap-2 ml-4" onClick={(e) => e.preventDefault()}>
+                <div
+                  className="flex gap-2 ml-4"
+                  onClick={(e) => e.preventDefault()}
+                >
                   <Button
                     variant="secondary"
                     size="icon"
@@ -139,7 +150,10 @@ export function CounterList({
         </Link>
       ))}
 
-      <Dialog open={!!editingCounter} onOpenChange={() => setEditingCounter(null)}>
+      <Dialog
+        open={!!editingCounter}
+        onOpenChange={() => setEditingCounter(null)}
+      >
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Edit Counter</DialogTitle>

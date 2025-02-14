@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import confetti from "canvas-confetti";
 import { useCounters, useUpdateCounter } from "@/lib/queries";
+import { DotLottiePlayer } from "@dotlottie/react-player";
 
 export default function Counter() {
   const [location, navigate] = useLocation();
@@ -60,14 +61,14 @@ export default function Counter() {
   }
 
   return (
-    <div 
+    <div
       className="min-h-screen bg-background flex flex-col touch-none"
       onClick={increment}
     >
       <div className="container p-4 sm:p-6 md:p-8 max-w-2xl mx-auto w-full flex-grow flex flex-col">
-        <div 
+        <div
           className="bg-muted/20 py-4 sm:py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-6 sm:mb-8"
-          onClick={e => e.stopPropagation()} // Prevent increment when clicking nav
+          onClick={(e) => e.stopPropagation()}
         >
           <Button
             variant="ghost"
@@ -87,22 +88,44 @@ export default function Counter() {
           </Button>
         </div>
 
-        <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-primary">{counter.title}</h1>
+
+       <div className="text-center mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold mb-2 border-b-2 border-gray-400 pb-2">
+            {counter.title}
+          </h1>
+
         </div>
 
         <div className="flex-grow flex flex-col justify-center items-center">
           <CircularProgress current={counter.current} total={counter.count} />
+
           {/* Lottie animation would ideally go here */}
-          <div className="text-center mt-6 text-muted-foreground text-sm sm:text-base">
-            Tap anywhere to increase counter
+
+          <div className="mt-12 sm:mt-16 flex justify-center items-center relative mb-24 sm:mb-32">
+            <DotLottiePlayer
+              src="https://lottie.host/c8eec2f4-e353-4437-8b50-98f36400cd19/qz1AeuZFVQ.lottie"
+              autoplay
+              loop
+              style={{
+                width: "150px",
+                height: "150px",
+                position: "absolute",
+                left: "50%",
+                marginTop: "0px",
+                transform: "translateX(-50%)",
+              }}
+            />
           </div>
         </div>
+
+      
 
         <Dialog open={showComplete} onOpenChange={setShowComplete}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
-              <DialogTitle className="text-primary">Congratulations! 🎉</DialogTitle>
+              <DialogTitle className="text-primary">
+                Congratulations! 🎉
+              </DialogTitle>
               <DialogDescription>
                 You have completed {counter.count} counts of {counter.title}
               </DialogDescription>

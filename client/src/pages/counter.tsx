@@ -15,7 +15,10 @@ import confetti from "canvas-confetti";
 import { useCounters, useUpdateCounter } from "@/lib/queries";
 import { DotLottiePlayer } from "@dotlottie/react-player";
 import BgWallPpr from "../../../assets/bg.png";
-export default function Counter() {
+import { Counter } from "../lib/types"; 
+
+
+export default function Counters() {
   const [location, navigate] = useLocation();
   const { id } = useParams();
   const { data: counters = [] } = useCounters();
@@ -34,8 +37,10 @@ export default function Counter() {
     updateCounterMutation(
       { id: counter.id, current: counter.current + 1 },
       {
-        onSuccess: (updated) => {
-          if (updated.current === updated.count) {
+        onSuccess: (updated) => {  
+          const updatedCounter = updated as Counter;
+    
+          if (updatedCounter.current === updatedCounter.count) {
             setShowComplete(true);
             confetti({
               particleCount: 100,
@@ -46,6 +51,8 @@ export default function Counter() {
         },
       }
     );
+    
+    
   }
 
   function resetCounter() {
@@ -73,7 +80,7 @@ export default function Counter() {
     >
       <div className="container p-4 sm:p-6 md:p-8 max-w-2xl mx-auto w-full flex-grow flex flex-col">
         <div
-          className="bg-muted/20 py-4 bg-gray-300 sm:py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-4 sm:mb-8"
+          className="bg-muted/20 py-4 bg-zinc-200 sm:py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-4 sm:mb-8"
           onClick={(e) => e.stopPropagation()}
         >
           <Button
@@ -95,7 +102,7 @@ export default function Counter() {
         </div>
 
         <div className="text-center mb-6 md:mb-8">
-          <h1 className="racing-sans-one text-2xl md:text-3xl font-bold mb-2 border-b-2 border-gray-400 pb-2">
+          <h1 className="racing-sans-one text-2xl md:text-3xl font-bold mb-2 border-b-2 border-gray-300 pb-2">
             {counter.title}
           </h1>
         </div>

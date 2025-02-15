@@ -8,7 +8,7 @@ interface CircularProgressProps {
 export function CircularProgress({ current, total }: CircularProgressProps) {
   const percentage = Math.round((current / total) * 100);
   const radius = 120;
-  const strokeWidth = 4;
+  const strokeWidth = 7;
   const normalizedRadius = radius - strokeWidth * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
@@ -23,7 +23,6 @@ export function CircularProgress({ current, total }: CircularProgressProps) {
         >
           {/* Background circle */}
           <circle
-            
             stroke="gray"
             // fill="transparent"
             strokeWidth={strokeWidth}
@@ -33,6 +32,7 @@ export function CircularProgress({ current, total }: CircularProgressProps) {
           />
           {/* Progress circle */}
           <circle
+          
             stroke="hsl(var(--primary))"
             fill="transparent"
             strokeWidth={strokeWidth}

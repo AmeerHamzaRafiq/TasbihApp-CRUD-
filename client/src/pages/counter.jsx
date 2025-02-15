@@ -15,7 +15,6 @@ import confetti from "canvas-confetti";
 import { useCounters, useUpdateCounter } from "@/lib/queries";
 import { DotLottiePlayer } from "@dotlottie/react-player";
 import BgWallPpr from "../../../assets/bg.png";
-// import BgWallPpr from "../../../assets/BGW.jpg";
 export default function Counter() {
   const [location, navigate] = useLocation();
   const { id } = useParams();
@@ -65,7 +64,7 @@ export default function Counter() {
     <div
       style={{
         backgroundImage: `url(${BgWallPpr})`,
-      
+
         backgroundPosition: "center",
         backgroundRepeat: "repeat",
       }}
@@ -74,7 +73,7 @@ export default function Counter() {
     >
       <div className="container p-4 sm:p-6 md:p-8 max-w-2xl mx-auto w-full flex-grow flex flex-col">
         <div
-          className="bg-muted/20 py-4 bg-slate-100 sm:py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-4 sm:mb-8"
+          className="bg-muted/20 py-4 bg-gray-300 sm:py-6 px-4 w-full rounded-md shadow-sm flex items-center justify-between mb-4 sm:mb-8"
           onClick={(e) => e.stopPropagation()}
         >
           <Button
@@ -94,9 +93,7 @@ export default function Counter() {
             Restart
           </Button>
         </div>
-   
 
-   
         <div className="text-center mb-6 md:mb-8">
           <h1 className="racing-sans-one text-2xl md:text-3xl font-bold mb-2 border-b-2 border-gray-400 pb-2">
             {counter.title}
@@ -108,7 +105,7 @@ export default function Counter() {
 
           {/* Lottie animation would ideally go here */}
 
-          <div className="mt-12 sm:mt-16 flex justify-center items-center relative mb-24 sm:mb-32">
+          <div className="mt-[90px] sm:mt-16 md:mt-0 flex justify-center items-center relative mb-14 sm:mb-32">
             <DotLottiePlayer
               src="https://lottie.host/c8eec2f4-e353-4437-8b50-98f36400cd19/qz1AeuZFVQ.lottie"
               autoplay
@@ -129,10 +126,12 @@ export default function Counter() {
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
               <DialogTitle className="text-primary">
-                Congratulations! 🎉
+                Masha Allah! 🎉
               </DialogTitle>
               <DialogDescription>
                 You have completed {counter.count} counts of {counter.title}
+                <br />
+                <b>"May Allah accept your recitation."</b>
               </DialogDescription>
             </DialogHeader>
             <DialogFooter className="flex justify-end gap-2 mt-4">

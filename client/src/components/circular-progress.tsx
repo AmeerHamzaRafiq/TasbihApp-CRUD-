@@ -14,8 +14,8 @@ export function CircularProgress({ current, total }: CircularProgressProps) {
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="relative w-[240px] h-[240px]">
+    <div className="flex flex-col items-center justify-center cursor-pointer">
+      <div className="relative w-[240px] h-[240px] mt-[-150px] md:mt-0">
         <svg
           height={radius * 2}
           width={radius * 2}
@@ -23,8 +23,9 @@ export function CircularProgress({ current, total }: CircularProgressProps) {
         >
           {/* Background circle */}
           <circle
-            stroke="hsl(var(--muted))"
-            fill="transparent"
+            
+            stroke="gray"
+            // fill="transparent"
             strokeWidth={strokeWidth}
             r={normalizedRadius}
             cx={radius}

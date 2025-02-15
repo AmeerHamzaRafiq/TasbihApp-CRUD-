@@ -94,7 +94,7 @@ export default function Home() {
       className="min-h-screen bg-background flex flex-col"
     >
       <div className="container p-4 sm:p-6 md:p-8 max-w-2xl mx-auto flex-grow">
-        <div className="bg-slate-100 mb-7 py-6 px-4 w-full flex justify-between rounded-md shadow-md">
+        <div className="bg-gray-300 mb-7 py-6 px-4 w-full flex justify-between rounded-md shadow-md">
           <div className="my-[-0.6rem]">
             <h1 className="racing-sans-one text-3xl mt-2 font-light">Tasbih</h1>
           </div>

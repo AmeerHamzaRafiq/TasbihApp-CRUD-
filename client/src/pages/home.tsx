@@ -100,12 +100,13 @@ export default function Home() {
           </div>
 
           <div className="flex gap-2">
-            <Button  size="lg"
-                  className="md:text-base flex items-center space-x-2 h-9">
-                    History
-                  </Button>
+            <Button
+              size="lg"
+              className="md:text-base flex items-center space-x-2 h-9"
+            >
+              History
+            </Button>
             <Dialog open={open} onOpenChange={setOpen}>
-              
               <DialogTrigger asChild>
                 <Button
                   size="lg"
@@ -113,7 +114,6 @@ export default function Home() {
                 >
                   <Plus className="w-5 h-5" />
                 </Button>
-                
               </DialogTrigger>
 
               <DialogContent className="sm:max-w-md">
@@ -175,11 +175,7 @@ export default function Home() {
         </div>
         <CounterList counters={counters} onDelete={onDelete} />
       </div>
-
-      
       // footer airea
-      
-      
       <footer className="text-gray-300 text-center pb-10 mt-auto">
         <p className="text-sm">
           &copy; {new Date().getFullYear()} Muhammad Ameer Hamza.
